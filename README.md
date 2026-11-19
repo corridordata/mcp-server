@@ -1,6 +1,6 @@
 # `@corridordata/mcp-server`
 
-Official **Model Context Protocol (MCP)** server for [**Corridor Data**](https://apify.com/corridordata)—giving **Claude Desktop**, **Cursor**, **Windsurf**, **VS Code**, **Cline**, and **OpenAI / LangChain AI Agents** instant, schema-validated access to **15 real-time B2B buying-trigger, startup funding, public procurement, remote hiring, SOC 2 compliance, and SaaS pricing datasets** on Apify.
+Official **Model Context Protocol (MCP)** server for [**Corridor Data**](https://apify.com/corridordata)—giving **Claude Desktop**, **Cursor**, **Windsurf**, **VS Code**, **Cline**, and **OpenAI / LangChain AI Agents** instant, schema-validated access to **20 real-time B2B buying-trigger, startup funding, FDA medtech, GLEIF corporate formation, public procurement, federal grants, regulatory rulemaking, remote hiring, SOC 2 compliance, and SaaS pricing datasets** on Apify.
 
 - **Zero Browser Overhead (`128 MB` Containers):** Every Corridor Data Actor runs against structured APIs, XML/Atom feeds, and DNS/SSR endpoints in **1–4 seconds** with **zero residential proxies required**.
 - **Bring Your Own `APIFY_TOKEN` (Risk-Free Free Tier + Pay-Per-Event):** Every tool call executes directly under your own Apify API token (`$5/month` free Apify platform credits included on Apify Free plans; transparent per-record Pay-Per-Event pricing with optional `maxTotalChargeUsd` spend caps).
@@ -14,6 +14,22 @@ Official **Model Context Protocol (MCP)** server for [**Corridor Data**](https:/
 - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
+**Install directly from GitHub (works immediately, zero registry wait):**
+```json
+{
+  "mcpServers": {
+    "corridordata": {
+      "command": "npx",
+      "args": ["-y", "github:corridordata/mcp-server"],
+      "env": {
+        "APIFY_TOKEN": "YOUR_APIFY_TOKEN"
+      }
+    }
+  }
+}
+```
+
+**Or via npm (`@corridordata/mcp-server`):**
 ```json
 {
   "mcpServers": {
@@ -72,7 +88,7 @@ To keep your agent's context window lean, pass `--tools` with a comma-separated 
 
 ---
 
-## All 15 Typed MCP Tools Included
+## All 20 Typed MCP Tools Included
 
 | MCP Tool Name | Underlying Apify Actor (`corridordata/<slug>`) | Primary B2B / Agent Use Case |
 | :--- | :--- | :--- |
@@ -91,6 +107,11 @@ To keep your agent's context window lean, pass `--tools` with a comma-separated 
 | **`search_eu_horizon_grants`** | [`eu-horizon-grants-funding-calls`](https://apify.com/corridordata/eu-horizon-grants-funding-calls) | Open & forthcoming EU Horizon Europe, Digital Europe, EIC, LIFE & EDF grants and tenders with EUR budgets & deadlines. |
 | **`search_us_federal_awards`** | [`usaspending-federal-contract-awards`](https://apify.com/corridordata/usaspending-federal-contract-awards) | Recent US federal prime contract & grant awards via USAspending.gov v2 filtered by keyword, NAICS & USD value. |
 | **`monitor_saas_changelogs`** | [`b2b-sitemap-changelog-launch-monitor`](https://apify.com/corridordata/b2b-sitemap-changelog-launch-monitor) | Track competitor SaaS product launches, changelog releases, pricing updates & integrations via XML sitemaps and RSS/Atom. |
+| **`search_fda_device_clearances`** | [`fda-510k-medtech-device-clearances`](https://apify.com/corridordata/fda-510k-medtech-device-clearances) | Newly FDA-cleared 510(k) and PMA Class III medical devices via openFDA with applicant domains, product codes & review days. |
+| **`search_new_lei_entities`** | [`gleif-new-lei-entity-formations`](https://apify.com/corridordata/gleif-new-lei-entity-formations) | Newly issued global Legal Entity Identifiers (LEIs) from GLEIF with incorporation date, legal form, registry number & parent links. |
+| **`search_us_grants_gov`** | [`grants-gov-federal-funding-opportunities`](https://apify.com/corridordata/grants-gov-federal-funding-opportunities) | Open & forecasted US federal grants on Grants.gov with award ceilings, total funding, CFDA listings & program officer emails. |
+| **`search_hn_hiring_startups`** | [`hn-whos-hiring-startup-leads`](https://apify.com/corridordata/hn-whos-hiring-startup-leads) | Structured startup hiring leads from monthly 'Ask HN: Who is hiring?' threads with domain, remote/visa flags, salary & tech stack. |
+| **`search_federal_register`** | [`federal-register-regulatory-signals`](https://apify.com/corridordata/federal-register-regulatory-signals) | US Federal Register final rules, proposed rules (NPRMs) & notices with open public comment deadlines, CFR citations & EO 12866 flags. |
 
 ---
 

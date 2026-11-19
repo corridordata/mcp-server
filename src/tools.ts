@@ -540,4 +540,205 @@ export const CORRIDOR_TOOLS: CorridorToolSpec[] = [
       maxTotalChargeUsd: maxChargeField,
     },
   },
+  {
+    name: "search_fda_device_clearances",
+    title: "Search FDA 510(k) & PMA Medical Device Clearances",
+    actorSlug: "fda-510k-medtech-device-clearances",
+    description:
+      "Extract newly cleared FDA 510(k) premarket notifications and PMA Class III medical device approvals via openFDA with applicant domains, product codes, specialties, and review cycle days (`corridordata/fda-510k-medtech-device-clearances`).",
+    shape: {
+      maxItems: z
+        .number()
+        .int()
+        .min(1)
+        .max(1000)
+        .default(20)
+        .describe("Maximum FDA device clearance records to return."),
+      recordTypes: z
+        .array(z.enum(["510k", "pma"]))
+        .default(["510k"])
+        .describe("FDA decision types to query (`510k` and/or `pma`)."),
+      daysBack: z
+        .number()
+        .int()
+        .min(1)
+        .max(3650)
+        .default(60)
+        .describe("Lookback window in days."),
+      keywords: z
+        .array(z.string())
+        .optional()
+        .describe("Optional device name keywords (e.g. ['software', 'catheter', 'robotic'])."),
+      productCodes: z
+        .array(z.string())
+        .optional()
+        .describe("Optional 3-letter FDA product codes (e.g. ['QIH', 'LLZ', 'DQY'])."),
+      applicantCountries: z
+        .array(z.string())
+        .optional()
+        .describe("Optional 2-letter ISO applicant country codes (e.g. ['US', 'DE', 'IL'])."),
+      maxTotalChargeUsd: maxChargeField,
+    },
+  },
+  {
+    name: "search_new_lei_entities",
+    title: "Search GLEIF Newly Issued LEI Company Formations",
+    actorSlug: "gleif-new-lei-entity-formations",
+    description:
+      "Stream newly issued global Legal Entity Identifiers (LEIs) from GLEIF—new companies, cross-border subsidiaries, funds, and SPVs with incorporation date, legal form, local registry number, and parent links (`corridordata/gleif-new-lei-entity-formations`).",
+    shape: {
+      maxItems: z
+        .number()
+        .int()
+        .min(1)
+        .max(1000)
+        .default(20)
+        .describe("Maximum newly issued LEI records to return."),
+      daysBack: z
+        .number()
+        .int()
+        .min(1)
+        .max(365)
+        .default(14)
+        .describe("Lookback window in days."),
+      countries: z
+        .array(z.string())
+        .optional()
+        .describe("Optional 2-letter ISO country codes (e.g. ['US', 'GB', 'DE', 'SG'])."),
+      entityCategories: z
+        .array(z.enum(["GENERAL", "FUND", "BRANCH", "SOLE_PROPRIETOR", "RESIDENT_GOVERNMENT_ENTITY", "INTERNATIONAL_ORGANIZATION"]))
+        .optional()
+        .describe("Optional GLEIF entity categories."),
+      keywords: z
+        .array(z.string())
+        .optional()
+        .describe("Optional legal name keywords."),
+      onlyNewlyIncorporated: z
+        .boolean()
+        .default(false)
+        .describe("Only include entities incorporated within 90 days of LEI issuance."),
+      includeParents: z
+        .boolean()
+        .default(false)
+        .describe("Resolve direct and ultimate parent LEI/names."),
+      maxTotalChargeUsd: maxChargeField,
+    },
+  },
+  {
+    name: "search_us_grants_gov",
+    title: "Search Grants.gov US Federal Funding Opportunities",
+    actorSlug: "grants-gov-federal-funding-opportunities",
+    description:
+      "Search open and forecasted US federal grants and cooperative agreements on Grants.gov with award ceilings, estimated total program funding, CFDA numbers, eligible applicants, and agency contact emails (`corridordata/grants-gov-federal-funding-opportunities`).",
+    shape: {
+      maxItems: z
+        .number()
+        .int()
+        .min(1)
+        .max(500)
+        .default(20)
+        .describe("Maximum grant opportunities to return."),
+      statuses: z
+        .array(z.enum(["posted", "forecasted", "closed", "archived"]))
+        .default(["posted", "forecasted"])
+        .describe("Opportunity statuses to include."),
+      keyword: z
+        .string()
+        .optional()
+        .describe("Optional full-text keyword (e.g. 'artificial intelligence', 'biotech', 'clean energy')."),
+      agencies: z
+        .array(z.string())
+        .optional()
+        .describe("Optional Grants.gov agency codes (e.g. ['HHS', 'NSF', 'DOE', 'DOD'])."),
+      enrichDetails: z
+        .boolean()
+        .default(true)
+        .describe("Fetch full synopsis details including award ceiling and agency contact email."),
+      maxTotalChargeUsd: maxChargeField,
+    },
+  },
+  {
+    name: "search_hn_hiring_startups",
+    title: "Search Hacker News 'Who Is Hiring' Startup Leads",
+    actorSlug: "hn-whos-hiring-startup-leads",
+    description:
+      "Extract structured startup hiring leads from official monthly 'Ask HN: Who is hiring?' threads via Algolia HN API—with company domain, remote/hybrid/onsite flags, visa sponsorship, salary bands, tech stack, and contact emails (`corridordata/hn-whos-hiring-startup-leads`).",
+    shape: {
+      maxItems: z
+        .number()
+        .int()
+        .min(1)
+        .max(1000)
+        .default(20)
+        .describe("Maximum startup hiring posts to return."),
+      monthsBack: z
+        .number()
+        .int()
+        .min(1)
+        .max(12)
+        .default(1)
+        .describe("Number of recent monthly HN hiring threads to scan."),
+      remoteOnly: z
+        .boolean()
+        .default(false)
+        .describe("Return only startups offering remote roles."),
+      visaSponsorshipOnly: z
+        .boolean()
+        .default(false)
+        .describe("Return only startups mentioning visa sponsorship."),
+      keywords: z
+        .array(z.string())
+        .optional()
+        .describe("Optional tech stack or role keywords (e.g. ['Rust', 'TypeScript', 'LLM'])."),
+      locations: z
+        .array(z.string())
+        .optional()
+        .describe("Optional location filters (e.g. ['San Francisco', 'Europe', 'London'])."),
+      maxTotalChargeUsd: maxChargeField,
+    },
+  },
+  {
+    name: "search_federal_register",
+    title: "Search US Federal Register Regulatory & Rulemaking Signals",
+    actorSlug: "federal-register-regulatory-signals",
+    description:
+      "Track newly published US Federal Register final rules, proposed rules (NPRMs), agency notices, and executive orders with open public comment deadlines, EO 12866 significance flags, CFR citations, and Regulations.gov links (`corridordata/federal-register-regulatory-signals`).",
+    shape: {
+      maxItems: z
+        .number()
+        .int()
+        .min(1)
+        .max(1000)
+        .default(20)
+        .describe("Maximum regulatory documents to return."),
+      daysBack: z
+        .number()
+        .int()
+        .min(1)
+        .max(365)
+        .default(14)
+        .describe("Lookback window in days."),
+      documentTypes: z
+        .array(z.enum(["RULE", "PRORULE", "NOTICE", "PRESDOCU"]))
+        .default(["RULE", "PRORULE"])
+        .describe("Federal Register document types to include."),
+      keyword: z
+        .string()
+        .optional()
+        .describe("Optional search query (e.g. 'artificial intelligence', 'cybersecurity', 'tariff')."),
+      agencySlugs: z
+        .array(z.string())
+        .optional()
+        .describe("Optional agency slugs (e.g. ['securities-and-exchange-commission', 'food-and-drug-administration'])."),
+      significantOnly: z
+        .boolean()
+        .default(false)
+        .describe("Return only EO 12866 significant regulatory actions."),
+      openForCommentOnly: z
+        .boolean()
+        .default(false)
+        .describe("Return only documents with an active public comment window."),
+      maxTotalChargeUsd: maxChargeField,
+    },
+  },
 ];

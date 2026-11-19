@@ -4,16 +4,16 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { CORRIDOR_TOOLS, createCorridorMcpServer } from "../dist/index.js";
 
-test("registers all 15 typed Corridor Data MCP tools with valid JSON schemas", async () => {
+test("registers all 20 typed Corridor Data MCP tools with valid JSON schemas", async () => {
   const server = createCorridorMcpServer({ apifyToken: "test_token_123" });
-  const client = new Client({ name: "corridor-test-client", version: "1.0.0" });
+  const client = new Client({ name: "corridor-test-client", version: "1.1.0" });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
 
   await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);
 
   const { tools } = await client.listTools();
-  assert.equal(tools.length, 15);
-  assert.equal(CORRIDOR_TOOLS.length, 15);
+  assert.equal(tools.length, 20);
+  assert.equal(CORRIDOR_TOOLS.length, 20);
 
   const names = new Set(tools.map((t) => t.name));
   for (const required of [
@@ -32,6 +32,11 @@ test("registers all 15 typed Corridor Data MCP tools with valid JSON schemas", a
     "search_eu_horizon_grants",
     "search_us_federal_awards",
     "monitor_saas_changelogs",
+    "search_fda_device_clearances",
+    "search_new_lei_entities",
+    "search_us_grants_gov",
+    "search_hn_hiring_startups",
+    "search_federal_register",
   ]) {
     assert.ok(names.has(required), `Expected MCP tool '${required}' to be registered`);
   }
