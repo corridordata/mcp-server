@@ -1,0 +1,57 @@
+{
+  "name": "@corridordata/mcp-server",
+  "version": "1.0.0",
+  "description": "Official Model Context Protocol (MCP) server for Corridor Data B2B intelligence, SEC Form D funding, global procurement tenders, remote hiring signals, SOC2/DNS stack auditing, and SaaS pricing extraction via Apify.",
+  "license": "MIT",
+  "author": "Corridor Data <ops@borderlessmath.com> (https://apify.com/corridordata)",
+  "homepage": "https://apify.com/corridordata",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/corridordata/mcp-server.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "apify",
+    "b2b-leads",
+    "sec-form-d",
+    "public-tenders",
+    "remote-jobs",
+    "saas-pricing",
+    "soc2",
+    "competitive-intelligence",
+    "claude",
+    "cursor",
+    "ai-agents"
+  ],
+  "type": "module",
+  "bin": {
+    "corridordata-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "smithery.yaml",
+    "glama.json"
+  ],
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x dist/index.js",
+    "start": "node dist/index.js",
+    "test": "npm run build && node --test test/mcp.test.mjs",
+    "prepublishOnly": "npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "typescript": "^5.8.2"
+  }
+}

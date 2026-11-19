@@ -1,0 +1,23 @@
+# Smithery.ai MCP Server Configuration (https://smithery.ai)
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - apifyToken
+    properties:
+      apifyToken:
+        type: string
+        description: Your personal Apify API Token (https://console.apify.com/settings/integrations). All Pay-Per-Event Actor runs are billed directly to your Apify account.
+      maxTotalChargeUsd:
+        type: number
+        description: Optional per-call USD spend cap passed to Apify Pay-Per-Event Actors (e.g. 0.50).
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['dist/index.js'],
+      env: {
+        APIFY_TOKEN: config.apifyToken,
+        ...(config.maxTotalChargeUsd ? { APIFY_MAX_TOTAL_CHARGE_USD: String(config.maxTotalChargeUsd) } : {})
+      }
+    })
