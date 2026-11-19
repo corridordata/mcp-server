@@ -14,22 +14,6 @@ Official **Model Context Protocol (MCP)** server for [**Corridor Data**](https:/
 - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
-**Install directly from GitHub (works immediately, zero registry wait):**
-```json
-{
-  "mcpServers": {
-    "corridordata": {
-      "command": "npx",
-      "args": ["-y", "github:corridordata/mcp-server"],
-      "env": {
-        "APIFY_TOKEN": "YOUR_APIFY_TOKEN"
-      }
-    }
-  }
-}
-```
-
-**Or via npm (`@corridordata/mcp-server`):**
 ```json
 {
   "mcpServers": {
