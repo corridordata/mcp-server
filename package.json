@@ -1,5 +1,6 @@
 {
   "name": "@corridordata/mcp-server",
+  "mcpName": "io.github.corridordata/mcp-server",
   "version": "1.1.0",
   "description": "Official Model Context Protocol (MCP) server for 20 Corridor Data B2B intelligence Actors (SEC Form D/8-K, FDA 510(k), GLEIF LEI, Grants.gov, Federal Register, HN Hiring, global tenders, SOC2/DNS & SaaS pricing) via Apify.",
   "license": "MIT",
