@@ -1,0 +1,39 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.corridordata/mcp-server",
+  "title": "Corridor Data B2B Intelligence MCP Server",
+  "description": "20 B2B data tools via Apify: SEC Form D/8-K, FDA 510(k), GLEIF LEI, grants, tenders & hiring.",
+  "websiteUrl": "https://apify.com/corridordata",
+  "repository": {
+    "url": "https://github.com/corridordata/mcp-server",
+    "source": "github",
+    "id": "1463726929"
+  },
+  "version": "1.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@corridordata/mcp-server",
+      "version": "1.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "APIFY_TOKEN",
+          "description": "Your Apify API token from https://console.apify.com/settings/integrations",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true
+        },
+        {
+          "name": "APIFY_MAX_TOTAL_CHARGE_USD",
+          "description": "Optional per-call USD spend cap for Pay-Per-Event Apify Actor runs (e.g. 1.00)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}
